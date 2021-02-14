@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
@@ -29,8 +30,12 @@ class VetControllerTest {
     @InjectMocks
     VetController vetController;
 
+    Set vetSet;
+
     @BeforeEach
     void setUp() {
+        vetSet = new HashSet<>(Set.of(new Vet(), new Vet()));
+        given(clinicService.findVets()).willReturn(vetSet);
     }
 
     @DisplayName("Test should return proper view")
@@ -38,11 +43,11 @@ class VetControllerTest {
     void showVetList() {
         //GIVEN
         Map<String, Object> model = new HashMap<>();
-        given(clinicService.findVets()).willReturn(new HashSet<>(Set.of(new Vet(), new Vet())));
         //WHEN
         String view = vetController.showVetList(model);
         //THEN
         assertEquals("vets/vetList", view);
+        then(model).should().put(anyString(), vetSet);
         then(clinicService).should().findVets();
         then(clinicService).shouldHaveNoMoreInteractions();
     }
@@ -50,8 +55,8 @@ class VetControllerTest {
     @DisplayName("Test should return a Vets Object to Client")
     @Test
     void showResourcesVetList() {
-        //GIVEN
-        given(clinicService.findVets()).willReturn(new HashSet<>(Set.of(new Vet(), new Vet())));
+        //GIVEN - handled by Setup
+
         //WHEN
         Vets vets = vetController.showResourcesVetList();
         //THEN
