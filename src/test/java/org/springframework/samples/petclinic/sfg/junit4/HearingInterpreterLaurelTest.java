@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 /*
 @RunWith(SpringJUnit4ClassRunner.class): Indicates that the class should use Spring's JUnit facilities.
 
-@ContextConfiguration(locations = {...}): Indicates which XML files contain the ApplicationContext.
+@ContextConfiguration(locations = {...}): Indicates which XML or java Config files contain the ApplicationContext.
  */
 
 //Its better to mock instead of bringing up the spring context which can be a pretty expensive operation
