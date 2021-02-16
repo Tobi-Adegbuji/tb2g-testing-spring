@@ -53,7 +53,7 @@ class VetControllerTest {
     }
 
 
-    //MockMvc is able to leverage the dispatcher servlet for testing contollers
+    //MockMvc is able to leverage the dispatcher servlet for testing controllers
     @Test
     void testControllerShowVetList() throws Exception {
         mockMvc.perform(get("/vets.html"))
